@@ -2,7 +2,9 @@ import React from 'react'
 
 function About() {
   return (
-    <div>About</div>
+    <div>
+        A database for video games pre 2000. 
+    </div>
   )
 }
 

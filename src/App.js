@@ -1,5 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import About from './components/About/About'
+import About from './Components/About/About';
+import AllGames from './Components/AllGames/AllGames';
+import EditGame from './Components/EditGame/EditGame';
+import Game from './Components/Game/Game';
+import Home from './Components/Home/Home';
+import Nav from './Components/Nav/Nav';
+import NewGame from './Components/NewGame/NewGame';
 
 import "./App.css";
 
@@ -10,9 +16,9 @@ function App() {
         <Nav />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/info" element={<Info />}/>
+          <Route path="/about" element={<About />}/>
           <Route path="/games" element={<AllGames />} />
-          <Route path="/games/create-game" element={<NewGame />} />
+          <Route path="/games/new-game" element={<NewGame />} />
           <Route path="/games/:id" element={<Game />} />
           <Route path="/games/:id/edit" element={<EditGame />} />
           <Route path="/404" element={<h1>404 Not found!</h1>} />
