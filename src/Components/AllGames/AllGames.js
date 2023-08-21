@@ -25,11 +25,33 @@ function AllGames() {
           a.title.localeCompare(b.title)
         );
         setGames(sortedGames);
-      } else {
+      } else if (sort === "Z-A") {
         const sortedGames = result.data.sort((a, b) =>
           b.title.localeCompare(a.title)
         );
         setGames(sortedGames);
+      } else if (sort === "Oldest Year") {
+        const sortedGames = result.data.sort((a, b) => {
+          if (Number(a.release_year) > Number(b.release_year)) {
+            return 1;
+          } else if (Number(a.release_year) < Number(b.release_year)) {
+            return -1;
+          } else {
+            return 0;
+          }
+        })
+        setGames(sortedGames)
+      } else {
+        const sortedGames = result.data.sort((a, b) => {
+          if (Number(a.release_year) < Number(b.release_year)) {
+            return 1;
+          } else if (Number(a.release_year) > Number(b.release_year)) {
+            return -1;
+          } else {
+            return 0;
+          }
+        })
+        setGames(sortedGames)
       }
     } catch (error) {
       console.log(error);
@@ -45,6 +67,8 @@ function AllGames() {
       <select name="sort" id="sort" onChange={handleSelectChange} defaultValue={sort}>
         <option value="A-Z">A-Z</option>
         <option value="Z-A">Z-A</option>
+        <option value="Oldest Year">Oldest Year</option>
+        <option value="Newest Year">Newest Year</option>
       </select>
       <ul>
         {games.map((game) => {
