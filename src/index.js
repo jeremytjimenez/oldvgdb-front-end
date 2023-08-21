@@ -3,6 +3,12 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
 
+import './bootstrap/css/bootstrap.min.css';
+// eslint-disable-next-line 
+import $ from 'jquery'; 
+// eslint-disable-next-line 
+import Popper from 'popper.js' 
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>

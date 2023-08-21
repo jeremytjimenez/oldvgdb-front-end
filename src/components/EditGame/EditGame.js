@@ -3,10 +3,13 @@ import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { updateGameById, getAllGames } from "../Api/API";
 
+import "./EditGame.css";
+import pen from "../../assets/pen-pixel-icon-png.png";
+
 function EditGame() {
   const [game, setGame] = useState({
     title: "",
-    release_date: "",
+    release_year: "",
     developer: "",
     publisher: "",
     country: "",
@@ -18,7 +21,7 @@ function EditGame() {
   });
   const navigate = useNavigate();
 
-  const { id } = useParams()
+  const { id } = useParams();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -38,10 +41,31 @@ function EditGame() {
     fetchData();
   }, [id]);
 
+  function handleSingleQuote(desc) {
+    let strArray = desc.split("");
+
+    let newStrArray = strArray;
+
+    strArray.forEach((char, index) => {
+      if (char === "'") {
+        newStrArray.toSpliced(index, 0, "'");
+      }
+    });
+
+    let newDesc = newStrArray.join("");
+
+    return newDesc;
+  }
+
   async function handleOnSubmit(event) {
     event.preventDefault();
+
+    let formattedDescription = handleSingleQuote(game.description);
     try {
-      let response = await updateGameById(id, game);
+      let response = await updateGameById(id, {
+        ...game,
+        description: formattedDescription,
+      });
       if (response.status === 200) {
         alert("Updated Successfully");
         navigate(`/games/${id}`);
@@ -53,11 +77,11 @@ function EditGame() {
 
   return (
     <div className="edit-game">
-      <h2>Add new game</h2>
+      <h1>Edit game</h1>
+      <img src={pen} alt="pen" />
       <form className="edit-game-form" onSubmit={handleOnSubmit}>
         <div className="edit-title">
-          <label htmlFor="name">Title</label>
-          <br />
+          <label className="label label-info" htmlFor="name">Title</label>
           <input
             placeholder="Title"
             type="text"
@@ -67,23 +91,23 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-releasedate">
-          <label htmlFor="release_date">Release Date</label>
-          <br />
+          <label className="label label-info" htmlFor="release_year">Release Year</label>
           <input
-            placeholder="Release Date"
+            placeholder="Release Year"
             type="text"
-            id="release_date"
-            value={game?.release_date}
-            onChange={(e) => setGame({ ...game, release_date: e.target.value })}
+            id="release_year"
+            value={game?.release_year}
+            onChange={(e) => setGame({ ...game, release_year: e.target.value })}
             required
           />
         </div>
+        <br />
 
         <div className="edit-developer">
-          <label htmlFor="developer">Developer</label>
-          <br />
+          <label className="label label-info" htmlFor="developer">Developer</label>
           <input
             placeholder="Developer"
             type="text"
@@ -93,10 +117,10 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-publisher">
-          <label htmlFor="publisher">Publisher</label>
-          <br />
+          <label className="label label-info" htmlFor="publisher">Publisher</label>
           <input
             placeholder="publisher"
             type="text"
@@ -106,10 +130,10 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-country">
-          <label htmlFor="country">Country</label>
-          <br />
+          <label className="label label-info" htmlFor="country">Country</label>
           <input
             placeholder="Country"
             type="text"
@@ -119,10 +143,10 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-platform">
-          <label htmlFor="platform">Platform</label>
-          <br />
+          <label className="label label-info" htmlFor="platform">Platform</label>
           <input
             placeholder="Platform"
             type="text"
@@ -132,10 +156,10 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-genre">
-          <label htmlFor="genre">Genre</label>
-          <br />
+          <label className="label label-info" htmlFor="genre">Genre</label>
           <input
             placeholder="Genre"
             type="text"
@@ -145,10 +169,10 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-player-count">
-          <label htmlFor="player-count">Player Count</label>
-          <br />
+          <label className="label label-info" htmlFor="player-count">Player Count</label>
           <input
             placeholder="e.g. 2"
             type="number"
@@ -158,33 +182,36 @@ function EditGame() {
             required
           />
         </div>
+        <br />
 
         <div className="edit-art">
-          <label htmlFor="art">Box Art Url</label>
-          <br />
+          <label className="label label-info" htmlFor="art">Art Url</label>
           <input
-            placeholder="Box Art Url"
+            placeholder="Art Url"
             type="text"
             id="art"
             value={game?.art}
             onChange={(e) => setGame({ ...game, art: e.target.value })}
           />
+          <p>e.g. screenshot or box art...</p>
         </div>
+        <br />
 
         <div className="edit-description">
           <label htmlFor="description">Description</label>
-          <br />
           <textarea
             placeholder="Description.."
             type="text"
+            rows="5"
             id="description"
             value={game?.description}
             onChange={(e) => setGame({ ...game, description: e.target.value })}
             required
           />
         </div>
+        <br />
 
-        <button className="edit-button">EDIT GAME</button>
+        <button className="edit-button btn">EDIT GAME</button>
       </form>
     </div>
   );

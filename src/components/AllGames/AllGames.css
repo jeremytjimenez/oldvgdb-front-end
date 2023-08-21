@@ -1,0 +1,31 @@
+.all-games ul {
+  list-style-type: none;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+}
+
+.all-games ul li {
+  color: #526879;
+  padding: 1em;
+  font-size: 20px;
+  border-radius: 30px;
+}
+
+.all-games ul li img {
+  max-height: 300px;
+  max-width: 300px;
+  border: 3px solid white;
+}
+
+.all-games ul li h2 {
+  text-align: center;
+}
+
+.all-games ul li h2:hover {
+  color: #0153e1;
+  cursor: pointer;
+}
+
+#sort {
+  margin-top: 3em;
+}

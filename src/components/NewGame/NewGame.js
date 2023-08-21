@@ -3,12 +3,13 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { createGame } from "../Api/API";
 
-// import "./NewGame.css";
+import "./NewGame.css";
+import floppydisk from '../../assets/floppydisk.png'
 
 function NewGame() {
   const [game, setGame] = useState({
     title: "",
-    release_date: "",
+    release_year: "",
     developer: "",
     publisher: "",
     country: "",
@@ -20,15 +21,37 @@ function NewGame() {
   });
   const navigate = useNavigate();
 
+  function handleSingleQuote(desc) {
+    let strArray = desc.split("");
+
+    let newStrArray = strArray;
+
+    strArray.forEach((char, index) => {
+      if (char === "'") {
+        newStrArray.toSpliced(index, 0, "'");
+      }
+    })
+
+    let newDesc = newStrArray.join("");
+
+    return newDesc;
+  }
+
   async function handleOnSubmit(event) {
     event.preventDefault();
     try {
-      let response = await createGame(game);
+
+      let formattedDescription = handleSingleQuote(game.description)
+      
+      let response = await createGame({
+        ...game,
+        description: formattedDescription
+      });
       if (response.status === 200) {
         alert("Game Created");
         setGame({
           title: "",
-          release_date: "",
+          release_year: "",
           developer: "",
           publisher: "",
           country: "",
@@ -47,11 +70,11 @@ function NewGame() {
 
   return (
     <div className="create-game">
-      <h2>Add new game</h2>
+      <h1>Add new game</h1>
+      <img src={floppydisk} alt="floppy disk"/>
       <form className="create-game-form" onSubmit={handleOnSubmit}>
-        <div className="create-title">
-          <label htmlFor="name">Title</label>
-          <br />
+        <div className="create-title ">
+          <label className="label label-info" htmlFor="name">Title</label>
           <input
             placeholder="Title"
             type="text"
@@ -61,23 +84,23 @@ function NewGame() {
             required
           />
         </div>
+        <br />
 
-        <div className="create-releasedate">
-          <label htmlFor="release_date">Release Date</label>
-          <br />
+        <div className="create-releaseyear">
+          <label className="label label-info" htmlFor="release_year">Release Year</label>
           <input
-            placeholder="Release Date"
+            placeholder="Release Year"
             type="text"
-            id="release_date"
-            value={game?.release_date}
-            onChange={(e) => setGame({ ...game, release_date: e.target.value })}
+            id="release_year"
+            value={game?.release_year}
+            onChange={(e) => setGame({ ...game, release_year: e.target.value })}
             required
           />
         </div>
+        <br />
 
         <div className="create-developer">
-          <label htmlFor="developer">Developer</label>
-          <br />
+          <label className="label label-info" htmlFor="developer">Developer</label>
           <input
             placeholder="Developer"
             type="text"
@@ -87,25 +110,23 @@ function NewGame() {
             required
           />
         </div>
+        <br />
 
         <div className="create-publisher">
-          <label htmlFor="publisher">Publisher</label>
-          <br />
+          <label className="label label-info" htmlFor="publisher">Publisher</label>
           <input
             placeholder="publisher"
             type="text"
             id="publisher"
             value={game?.publisher}
-            onChange={(e) =>
-              setGame({ ...game, publisher: e.target.value })
-            }
+            onChange={(e) => setGame({ ...game, publisher: e.target.value })}
             required
           />
         </div>
+        <br />
 
         <div className="create-country">
-          <label htmlFor="country">Country</label>
-          <br />
+          <label className="label label-info" htmlFor="country">Country</label>
           <input
             placeholder="Country"
             type="text"
@@ -115,10 +136,10 @@ function NewGame() {
             required
           />
         </div>
+        <br />
 
         <div className="create-platform">
-          <label htmlFor="platform">Platform</label>
-          <br />
+          <label className="label label-info" htmlFor="platform">Platform</label>
           <input
             placeholder="Platform"
             type="text"
@@ -128,10 +149,10 @@ function NewGame() {
             required
           />
         </div>
+        <br />
 
         <div className="create-genre">
-          <label htmlFor="genre">Genre</label>
-          <br />
+          <label className="label label-info" htmlFor="genre">Genre</label>
           <input
             placeholder="Genre"
             type="text"
@@ -141,10 +162,10 @@ function NewGame() {
             required
           />
         </div>
+        <br />
 
         <div className="create-player-count">
-          <label htmlFor="player-count">Player Count</label>
-          <br />
+          <label className="label label-info" htmlFor="player-count">Player Count</label>
           <input
             placeholder="e.g. 2"
             type="number"
@@ -154,33 +175,34 @@ function NewGame() {
             required
           />
         </div>
+        <br />
 
         <div className="create-art">
-          <label htmlFor="art">Box Art Url</label>
-          <br />
+          <label className="label label-info" htmlFor="art">Art Url</label>
           <input
-            placeholder="Box Art Url"
+            placeholder="Art Url"
             type="text"
             id="art"
             value={game?.art}
             onChange={(e) => setGame({ ...game, art: e.target.value })}
           />
+          <p>e.g. screenshot or box art...</p>
         </div>
+        <br />
 
         <div className="create-description">
           <label htmlFor="description">Description</label>
-          <br />
-          <input
+          <textarea
             placeholder="Description.."
-            type="text"
+            rows="5"
             id="description"
             value={game?.description}
             onChange={(e) => setGame({ ...game, description: e.target.value })}
-            required
           />
         </div>
+        <br />
 
-        <button className="create-button">CREATE NEW GAME</button>
+        <button className="create-button btn">CREATE NEW GAME</button>
       </form>
     </div>
   );

@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { getAllGames, handleDeleteById } from "../Api/API";
 
-// import "./Game.css"
+import "./Game.css"
 
 function Game() {
   const [game, setGame] = useState(null);
@@ -48,31 +48,35 @@ function Game() {
 
   return (
     <div className="game">
-      <section className="gameDetails">
+      <section className="game-details">
         <img
-          className="showGameImage"
+          className="show-game-image"
           src={game?.art}
           alt="box art"
         />
-        <div className="gameInfo">
-          <p className="gameDetailsName">
+        <div className="game-info">
+          <p className="game-details-name">
             <strong>
-              {game?.title} {`(${game?.release_date})`}
+              {game?.title} {`(${game?.release_year})`}
             </strong>
           </p>
 
-          <p className="gameDeveloper"> Developer: {game?.developer}</p>
-          <p className="gameGenre">{game?.genre}</p>
-          <p className="gamePublisher">{game?.publisher}
+          <p className="game-developer"> Developer: {game?.developer}</p>
+          <p className="game-publisher">Publisher: {game?.publisher}
           </p>
-          <p className="gameCountry">{game?.country}</p>
-          <p className="gamePlayerCount">
-            Players: {game?.player_count}
+          <p className="game-genre">{game?.genre}</p>
+          <p className="game-platform">{game?.platform}</p>
+          <p className="game-country">{game?.country}</p>
+          <p className="game-playerCount">
+            Players: <span className="badge">{game?.player_count}</span>
             <br />
+          </p>
+          <p>
+            {game?.description}
           </p>
           <br />
           <button
-            className="gameEdit"
+            className="game-edit btn"
             onClick={() => {
               navigate(`/games/${id}/edit`);
             }}
@@ -80,14 +84,14 @@ function Game() {
             Edit
           </button>
           <br />
-          <button className="delete" onClick={() => handleDeleteRequest(id)}>
+          <button className="delete btn" onClick={() => handleDeleteRequest(id)}>
             Delete
           </button>
         </div>
       </section>
 
       <button
-        className="gameBack"
+        className="game-back btn"
         onClick={() => {
           navigate("/games");
         }}
