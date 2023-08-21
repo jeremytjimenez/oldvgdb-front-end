@@ -1,11 +1,11 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import About from './Components/About/About';
-import AllGames from './Components/AllGames/AllGames';
-import EditGame from './Components/EditGame/EditGame';
-import Game from './Components/Game/Game';
-import Home from './Components/Home/Home';
-import Nav from './Components/Nav/Nav';
-import NewGame from './Components/NewGame/NewGame';
+import About from './Components/About/About.js';
+import AllGames from './Components/AllGames/AllGames.js';
+import EditGame from './Components/EditGame/EditGame.js';
+import Game from './Components/Game/Game.js';
+import Home from './Components/Home/Home.js';
+import Nav from './Components/Nav/Nav.js';
+import NewGame from './Components/NewGame/NewGame.js';
 
 import "./App.css";
 
