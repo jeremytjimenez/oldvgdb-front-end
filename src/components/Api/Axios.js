@@ -4,7 +4,7 @@ const AxiosInstance = axios.create({
   baseURL:
     process.env.NODE_ENV === "development"
       ? "http://localhost:3001"
-      : "https://overpriced-backend.onrender.com",
+      : "https://oldvgdb-back-end.onrender.com",
   timeout: 50000,
 });
 
