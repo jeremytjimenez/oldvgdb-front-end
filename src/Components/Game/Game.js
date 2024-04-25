@@ -1,12 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import { getAllGames, handleDeleteById } from "../Api/API";
+// import { getAllGames, handleDeleteById } from "../Api/API";
 
 import "./Game.css"
 
+import gamesData from "../../gamesData";
+
 function Game() {
   const [game, setGame] = useState(null);
+  // eslint-disable-next-line
   const [showConfirmation, setShowConfirmation] = useState(false);
   const { id } = useParams();
   const navigate = useNavigate();
@@ -14,7 +17,8 @@ function Game() {
   useEffect(() => {
     const fetchData = async () => {
     try {
-      let result = await getAllGames();
+      // let result = await getAllGames();
+      let result = {data: gamesData}
 
       let findGame = result.data.findIndex((item) => {
         return item.id === Number(id);
@@ -27,24 +31,24 @@ function Game() {
     fetchData();
   }, [id]);
 
-  async function handleDeleteRequest(id) {
-    setShowConfirmation(true);
-  }
+  // async function handleDeleteRequest(id) {
+  //   setShowConfirmation(true);
+  // }
 
-  async function handleDeleteSubmit() {
-    try {
-      let result = await handleDeleteById(id);
-      if (result.status === 200) {
-        navigate("/games");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  }
+  // async function handleDeleteSubmit() {
+  //   try {
+  //     let result = await handleDeleteById(id);
+  //     if (result.status === 200) {
+  //       navigate("/games");
+  //     }
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
 
-  function handleCancelDelete() {
-    setShowConfirmation(false);
-  }
+  // function handleCancelDelete() {
+  //   setShowConfirmation(false);
+  // }
 
   return (
     <div className="game">
@@ -84,9 +88,9 @@ function Game() {
             Edit
           </button>
           <br />
-          <button className="delete btn" onClick={() => handleDeleteRequest(id)}>
+          {/* <button className="delete btn" onClick={() => handleDeleteRequest(id)}>
             Delete
-          </button>
+          </button> */}
         </div>
       </section>
 
@@ -105,12 +109,12 @@ function Game() {
             <strong>Are you sure you want to delete this game?</strong>
           </p>
           <ul>
-            <li>
+            {/* <li>
               <button onClick={handleDeleteSubmit}>Yes</button>
             </li>
             <li>
               <button onClick={handleCancelDelete}>No</button>
-            </li>
+            </li> */}
           </ul>
         </div>
       )}
