@@ -2,7 +2,9 @@ import React from "react";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getAllGames } from "../Api/API";
+// import { getAllGames } from "../Api/API";
+
+import gamesData from "../../gamesData";
 
 import "./AllGames.css";
 
@@ -19,7 +21,8 @@ function AllGames() {
 
   async function fetchData() {
     try {
-      let result = await getAllGames();
+      // let result = await getAllGames();
+      let result = {data: gamesData};
       if (sort === "A-Z") {
         const sortedGames = result.data.sort((a, b) =>
           a.title.localeCompare(b.title)
